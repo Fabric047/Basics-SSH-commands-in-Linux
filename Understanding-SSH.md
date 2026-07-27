@@ -2,11 +2,18 @@
 
 
 ## 📌 What is SSH?
-SSH stands for Secure Shell. It is a network protocol that allows a user to remotely control and manage a computer via a command line, with all traffic encrypted end-to-end.
+It's a cryptographic network protocol and software suite widely used in data centers and enterprise networks because it lets you (like an administrator) safely access and control a remote computer or server over an unsecured network. It enables secure device authentication, remote system administration, command execution, and file transfers over insecure networks.
 
-* **Puerto por defecto:** `22/TCP`
-* **Archivo de configuración del cliente:** `~/.ssh/config`
-* **Archivo de llaves autorizadas (Servidor):** `~/.ssh/authorized_keys`
+Think of it as a secure, encrypted tunnel: when you type commands into a terminal on your laptop, SSH scrambles those commands, routes them across the internet, and executes them on the destination machine as if you were sitting right in front of its keyboard.
+
+* **Default port:** `22/TCP`
+* **Client configuration file:** `~/.ssh/config`
+* **Authorized Key File (Server):** `~/.ssh/authorized_keys`
+
+---
+
+## What makes SSH secure?
+
 
 ---
 
