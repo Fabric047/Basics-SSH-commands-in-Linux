@@ -6,9 +6,9 @@ It's a cryptographic network protocol and software suite widely used in data cen
 
 Think of it as a secure, encrypted tunnel: when you type commands into a terminal on your laptop, SSH scrambles those commands, routes them across the internet, and executes them on the destination machine as if you were sitting right in front of its keyboard.
 
-* **Default port:** `22/TCP`
-* **Client configuration file:** `~/.ssh/config`
-* **Authorized Key File (Server):** `~/.ssh/authorized_keys`
+**In other words, SSH is two separate pieces of software working together:**
+* **The SSH Client (ssh):** Runs on your local machine (macOS, Linux, or Windows PowerShell). You use it to initiate connections.
+* **The SSH Server Daemon (sshd):** Runs as a background service on the remote machine, waiting on a port (**default: 22**) to accept incoming connections.
 
 ---
 
@@ -36,11 +36,7 @@ SSH itself is considered mathematically unbroken but real-world security risks c
 
 ---
 
-
-
----
-
-## 📚 Fuentes y Lecturas Recomendadas 
+## 📚 Sources I used to learn all this 
 * [Cloudflare - What is SSH?](https://www.cloudflare.com/learning/access-management/what-is-ssh/)
 * [SSH Academy - What is SSH]([https://www.paloaltonetworks.com](https://www.ssh.com/academy/ssh))
 * [IBM Documentation - SSH Security Best Practices](https://www.ibm.com)
