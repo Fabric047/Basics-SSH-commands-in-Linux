@@ -1,4 +1,4 @@
-# 🔑 Cheatsheet: SSH en Linux
+# 🔑 Understanding SSH from scratch
 
 
 ## 📌 What is SSH?
@@ -13,64 +13,28 @@ Think of it as a secure, encrypted tunnel: when you type commands into a termina
 ---
 
 ## What makes SSH secure?
+Mathematically and architecturally, modern SSH (SSH-2) is very secure. It replaced older, unencrypted remote login tools like Telnet.
 
-
----
-
-## What does SSH do?
-
-
----
-
-## 🚀 Comandos de Conexión Básica
-
-| Comando | Descripción |
-| :--- | :--- |
-| `ssh usuario@IP` | Conectarse a una maquina remota usando contraseña |
-| `ssh usuario@IP -p 2222` | Conectarse especificando un puerto diferente al 22 |
-| `ssh -i /ruta/id_rsa usuario@IP` | Conectarse usando una llave privada de SSH |
+* **Symmetrical & Asymmetrical Encryption:** When you initiate a connection, SSH uses asymmetrical encryption (public/private key pairs) to authenticate parties and safely negotiate a shared secret key. Once established, it switches to fast symmetrical encryption (like AES-256 or ChaCha20) to encrypt all traffic passing through the tunnel.
+  
+* **Integrity Hashing (HMAC):** Every packet sent through SSH contains a Message Authentication Code. This guarantees that if a bad actor attempts to tamper with or alter data in transit, the receiver instantly drops the connection.
+  
+* **Key-Based Authentication:** Instead of relying on traditional passwords, SSH allows you to authenticate using SSH keys—a set of two cryptographically linked keys. You keep the private key secret, while the public key sits on the server. The private key never travels over the network, so it is immune to interception.
 
 ---
 
-## 🔐 Configuración de Autenticación por Llaves (Sin Contraseña)
+## Where Does SSH Vulnerability Lie?
 
-### 1. Generar tu par de claves en tu máquina
-```bash
-ssh-keygen -t rsa -b 4096 -C "tu_email@ejemplo.com"
-```
-> Esto creará dos archivos en tu carpeta `~/.ssh/`:
-> * `id_rsa` (Llave privada - **NUNCA LA COMPARTAS**)
-> * `id_rsa.pub` (Llave pública - Se copia en el servidor remoto)
+SSH itself is considered mathematically unbroken but real-world security risks come down to configuration and human error:
 
-### 2. Copiar la llave pública al servidor remoto
-```bash
-ssh-copy-id usuario@IP
-```
+| Vulnerability | Why it happens | How to avoid it |
+| :--- | :--- | :--- |
+| Weak Passwords | Allowing password logins leaves servers vulnerable to automated brute-force scripts | Disable password login and use SSH keys |
+| Exposed Private Keys | Leaving private keys unprotected or sharing them unencrypted exposes access | Protect private keys with strong passphrases and strict file permissions |
+| Default Port Scanning | The default port of ssh is 22, making it a primary target for automated internet-wide port scanners | Change the SSH port, use fail2ban, or lock access down via a firewall/VPN. |
+| Ignoring Host Key Warnings | Blindly accepting new host fingerprints exposes you to Man-in-the-Middle (MitM) attacks | Verify host key fingerprints before connecting to a new server for the first time |
 
 ---
-
-## 🛠️ Transferencia de Archivos vía SSH (SCP)
-
-Para enviar o descargar archivos entre tu máquina y el servidor:
-
-* **Enviar un archivo local al servidor remoto:**
-  ```bash
-  scp /ruta/archivo.txt usuario@IP:/ruta/destino/
-  ```
-
-* **Descargar un archivo del servidor a tu máquina:**
-  ```bash
-  scp usuario@IP:/ruta/remota/archivo.txt /ruta/local/
-  ```
-
----
-
-## 💡 Tips de Ciberseguridad / CTFs
-* Si encuentras una clave privada (`id_rsa`) en un servidor objetivo durante un CTF, dale los permisos correctos antes de usarla o SSH no te dejará conectar:
-  ```bash
-  chmod 600 id_rsa
-  ssh -i id_rsa usuario@IP
-  ```
 
 
 
